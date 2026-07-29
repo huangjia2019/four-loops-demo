@@ -1,0 +1,13 @@
+[project]
+name = "four-loops-demo"
+version = "0.1.0"
+description = "四种循环 · Agent Loop 可运行参照实现（教学）"
+requires-python = ">=3.9"
+# 默认 MOCK 路径零依赖。只有想接真模型时才需要 anthropic。
+dependencies = []
+
+[project.optional-dependencies]
+live = ["anthropic>=0.40"]
+
+[tool.setuptools]
+packages = ["common", "loops"]
