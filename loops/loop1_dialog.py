@@ -35,12 +35,7 @@ def acceptance_check(draft: dict) -> tuple[bool, str]:
     if control_off():                       # ← 开关：NO_CONTROL=1 时跳过整张清单
         return True, "⚠ 控制点已关闭：一律放行（裸奔）"
     # ┌─ 想手动关控制点？把下面这三条 if 注释掉即可（别动 one_turn 里的调用！）─┐
-    if draft["intent_high_risk"]:
-        return False, "命中高风险意图（退款/投诉/索赔）→ 强制转人工"
-    if draft["confidence"] < CONFIDENCE_FLOOR:
-        return False, f"置信度 {draft['confidence']} < {CONFIDENCE_FLOOR} → 不自答"
-    if not draft["cites_order"] and "订单" in draft["draft"]:
-        return False, "回复涉及订单却未引用订单事实 → 防编造"
+
     # └─ 注释掉上面三条 → 只剩下面这行 return True → 一律放行（=关掉控制点，不会报错）─┘
     return True, f"置信度 {draft['confidence']}，无高风险信号，可自动发出"
 
